@@ -5,6 +5,9 @@ public class Post {
     private String title;
     private String content;
     private String date;
+    private int views;
+
+
 
     public Long getId() {
         return id;
@@ -36,5 +39,13 @@ public class Post {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 }

@@ -10,6 +10,7 @@ public class MemoryPostRepository implements PostRepository{
     @Override
     public Post save(Post post) {
         post.setId(++sequence);
+        post.setViews(0);
         store.put(sequence, post);
         return post;
     }
