@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public class PostService {
 
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
     @Autowired
     public PostService(PostRepository postRepository) {
@@ -26,9 +26,8 @@ public class PostService {
         return id;
     }
 
-    public Long deletePost(Long id) {
+    public void deletePost(Long id) {
         postRepository.delete(id);
-        return id;
     }
 
     public Optional<Post> viewPost(Long id) {

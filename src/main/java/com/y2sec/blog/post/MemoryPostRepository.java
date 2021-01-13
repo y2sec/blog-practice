@@ -4,7 +4,7 @@ import java.util.*;
 
 public class MemoryPostRepository implements PostRepository{
 
-    private static Map<Long, Post> store = new HashMap<>();
+    private static final Map<Long, Post> store = new HashMap<>();
     private static Long sequence = 0L;
 
     @Override
@@ -17,8 +17,9 @@ public class MemoryPostRepository implements PostRepository{
 
     @Override
     public Post update(Post post, Long id) {
-        post.setId(id);
-        store.put(id, post);
+        store.get(id).setTitle(post.getTitle());
+        store.get(id).setContent(post.getContent());
+
         return post;
     }
 

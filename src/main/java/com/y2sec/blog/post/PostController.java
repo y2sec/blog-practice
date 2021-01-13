@@ -14,15 +14,15 @@ import java.util.Optional;
 @Controller
 public class PostController {
 
-    private PostService postService;
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private final PostService postService;
+    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     public PostController(PostService postService) {
         this.postService = postService;
     }
 
     @GetMapping("/post/new")
-    public String newForm(Model model) {
+    public String newForm() {
         return "post/postCreate";
     }
 
@@ -61,12 +61,35 @@ public class PostController {
     }
 
     @PostMapping("/post/list")
-    public String deletePost(PostForm postForm, Model model) {
+    public String deletePostForm(PostForm postForm, Model model) {
         postService.deletePost(postForm.getId());
 
         List<Post> posts = postService.postAll();
         model.addAttribute("posts", posts);
 
         return "/post/postList";
+    }
+
+    @PostMapping("/post/update")
+    public String updatePostForm(PostForm postForm, Model model) {
+        Optional<Post> post = postService.viewPost(postForm.getId());
+        if (post.isPresent())
+            model.addAttribute("post", post.get());
+        else
+            return "/post/postNull";
+
+        return "/post/postUpdate";
+    }
+
+    @PostMapping("/post/comple")
+    public String updatePost(PostForm postForm) {
+        Post post = new Post();
+        post.setId(postForm.getId());
+        post.setTitle(postForm.getTitle());
+        post.setContent(postForm.getContent());
+
+        postService.updatePost(post, post.getId());
+
+        return "/post/postComple";
     }
 }

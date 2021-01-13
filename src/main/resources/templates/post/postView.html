@@ -25,6 +25,10 @@
             <th>Content</th>
             <td th:text="${post.content}"></td>
             <td>
+                <form method="post" action="/post/update">
+                    <input type="hidden" name="id" th:value="${post.id}">
+                    <input type="submit" value="수정">
+                </form>
                 <form method="post" action="/post/list">
                     <input type="hidden" name="id" th:value="${post.id}">
                     <input type="submit" value="삭제">
